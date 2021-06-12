@@ -2,7 +2,6 @@
  * @jest-environment jsdom
  */
 
-
 const advancedBootstrapSelect = require('../src/advanced-bootstrap-select')
 
 test('GetOrCreateIdForElement returns correct id when element has id', () => {
@@ -52,7 +51,9 @@ test('ConstructConfiguration should return configuration values from element if 
     // Arrange
     document.body.innerHTML = 
     `
-    <select id="arbitraryId" multiple>
+    <select id="arbitraryId"
+        data-bs-prompt="Some arbitrary prompt text"
+        multiple>
     </select>
     `
     const element = document.querySelector('select');
@@ -63,6 +64,73 @@ test('ConstructConfiguration should return configuration values from element if 
     // Assert
     expect(outputConfiguration).toEqual(expect.objectContaining({
         selectId: 'arbitraryId',
-        multiple: true
+        multiple: true,
+        promptText: 'Some arbitrary prompt text'
     }));
+});
+
+test('SelectButton should return a button element', () => {
+    // Arrange
+    document.body.innerHTML = 
+    `
+    <select id="arbitraryId">
+    </select>
+    `
+    const selectElement = document.querySelector('select');
+    const configuration = advancedBootstrapSelect.ConstructConfiguration(selectElement, {});
+
+    // Act
+    const buttonElement = advancedBootstrapSelect.SelectButton(configuration);
+
+    // Assert
+    expect(buttonElement.tagName).toBe('BUTTON');
+})
+
+test('SelectButton should have the data-bs-toggle attribute of button', () => {
+    document.body.innerHTML = 
+    `
+    <select id="arbitraryId">
+    </select>
+    `
+    const selectElement = document.querySelector('select');
+    const configuration = advancedBootstrapSelect.ConstructConfiguration(selectElement, {});
+
+    // Act
+    const buttonElement = advancedBootstrapSelect.SelectButton(configuration);
+
+    // Assert
+    expect(buttonElement.hasAttribute('data-bs-toggle')).toBeTruthy();
+    expect(buttonElement.getAttribute('data-bs-toggle')).toBe('button');
+});
+
+test('SelectButton should have the correct bootstrap classes', () => {
+    document.body.innerHTML = 
+    `
+    <select id="arbitraryId">
+    </select>
+    `
+    const selectElement = document.querySelector('select');
+    const configuration = advancedBootstrapSelect.ConstructConfiguration(selectElement, {});
+
+    // Act
+    const buttonElement = advancedBootstrapSelect.SelectButton(configuration);
+
+    // Assert
+    expect(buttonElement.className).toContain('form-select');
+    expect(buttonElement.className).toContain('text-start');
+});
+
+test('SelectButton should have the correct prompt text', () => {
+    // Arrange
+    const configuration = {
+        selectId: 'arbitraryId',
+        multiple: true,
+        promptText: 'Some arbitrary prompt text'
+    }
+
+    // Act
+    const buttonElement = advancedBootstrapSelect.SelectButton(configuration);
+
+    // Assert
+    expect(buttonElement.innerHTML).toBe('Some arbitrary prompt text');
 });
