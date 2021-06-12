@@ -4,7 +4,7 @@
   "description": "A styled and searchable select for use with Bootstrap 5",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest"
   },
   "author": "",
   "license": "ISC",

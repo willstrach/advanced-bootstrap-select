@@ -47,3 +47,22 @@ test('RemoveNullPropertiesFromObject should remove any null properties and keep 
     // Assert
     expect(outputObject).toEqual({propertyTwo: 'not null'});
 });
+
+test('ConstructConfiguration should return configuration values from element if empty inputConfiguration is provided', () => {
+    // Arrange
+    document.body.innerHTML = 
+    `
+    <select id="arbitraryId" multiple>
+    </select>
+    `
+    const element = document.querySelector('select');
+
+    // Act
+    const outputConfiguration = advancedBootstrapSelect.ConstructConfiguration(element, {});
+
+    // Assert
+    expect(outputConfiguration).toEqual(expect.objectContaining({
+        selectId: 'arbitraryId',
+        multiple: true
+    }));
+});

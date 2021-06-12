@@ -1,7 +1,8 @@
 if (typeof module !== 'undefined'){
     module.exports = {
         GetOrCreateIdForElement,
-        RemoveNullPropertiesFromObject
+        RemoveNullPropertiesFromObject,
+        ConstructConfiguration
     }
 }
 
@@ -27,6 +28,26 @@ function RemoveNullPropertiesFromObject(inputObject) {
     return outputObject;
 }
 
+function ConstructConfiguration(selectElement, inputConfiguration) {
+    const defaultConfiguration = {
+    }
+
+    const elementConfiguration = {
+        selectId: selectElement.id,
+        multiple: selectElement.hasAttribute('multiple') ? true : false,
+    }
+
+    const outputConfiguration = {
+        ...defaultConfiguration,
+        ...RemoveNullPropertiesFromObject(elementConfiguration),
+        ...inputConfiguration
+    };
+
+    return outputConfiguration;
+}
+
+
 function AdvancedBootstrapSelect(selectElement, inputConfiguration = {}) {
     const selectId = GetOrCreateIdForElement(selectElement);
+    const configuration = ConstructConfiguration(selectElement, inputConfiguration);
 }
