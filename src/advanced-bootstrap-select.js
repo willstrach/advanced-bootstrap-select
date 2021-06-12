@@ -3,7 +3,8 @@ if (typeof module !== 'undefined'){
         GetOrCreateIdForElement,
         RemoveNullPropertiesFromObject,
         ConstructConfiguration,
-        SelectButton
+        SelectButton,
+        GetSelectedItems
     }
 }
 
@@ -49,12 +50,21 @@ function ConstructConfiguration(selectElement, inputConfiguration) {
     return outputConfiguration;
 }
 
+function GetSelectedItems(selectId) {
+    return Array.from(document.querySelectorAll(`#${selectId} > option[selected]`)).map((option) => {
+        return {
+            value: option.getAttribute('value'),
+            text: option.innerHTML
+        }
+    });
+}
+
 function SelectButton(configuration) {
     const button = document.createElement('button');
     button.className = 'form-select text-start';
     button.setAttribute('data-bs-toggle', 'button');
     button.innerHTML = configuration.promptText;
-
+    
     return button;
 }
 

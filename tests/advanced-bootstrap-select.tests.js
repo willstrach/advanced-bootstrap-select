@@ -134,3 +134,67 @@ test('SelectButton should have the correct prompt text', () => {
     // Assert
     expect(buttonElement.innerHTML).toBe('Some arbitrary prompt text');
 });
+
+test('GetSelectedItems should return empty array if no items exist', () => {
+    // Arrange
+    document.body.innerHTML = 
+    `
+    <select id="arbitraryId">
+    </select>
+    `
+
+    // Act
+    const selectedItems = advancedBootstrapSelect.GetSelectedItems('arbitraryId');
+
+    // Assert
+    expect(selectedItems).toBeDefined();
+    expect(selectedItems.length).toBe(0);
+});
+
+test('GetSelectedItems should return empty array if no selected items exist', () => {
+    // Arrange
+    document.body.innerHTML = 
+    `
+    <select id="arbitraryId">
+        <option value="1">Option 1</option>
+        <option value="2">Option 2</option>
+    </select>
+    `
+
+    // Act
+    const selectedItems = advancedBootstrapSelect.GetSelectedItems('arbitraryId');
+
+    // Assert
+    expect(selectedItems).toBeDefined();
+    expect(selectedItems.length).toBe(0);
+});
+
+test('GetSelectedItems should return array of selected items if selected items exist', () => {
+    // Arrange
+    document.body.innerHTML = 
+    `
+    <select id="arbitraryId">
+        <option value="1" selected>Option 1</option>
+        <option value="2" selected>Option 2</option>
+        <option value="3">Option 3</option>
+        <option value="4">Option 4</option>
+    </select>
+    `
+
+    // Act
+    const selectedItems = advancedBootstrapSelect.GetSelectedItems('arbitraryId');
+
+    // Assert
+    expect(selectedItems).toBeDefined();
+    expect(selectedItems.length).toBe(2);
+    expect(selectedItems).toEqual(
+        expect.arrayContaining([
+            expect.objectContaining(
+                {value: '1', text: 'Option 1'}
+            ),
+            expect.objectContaining(
+                {value: '2', text: 'Option 2'}
+            )
+        ])
+    );
+});
