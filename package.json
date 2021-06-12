@@ -11,5 +11,12 @@
   "devDependencies": {
     "jest": "^27.0.4",
     "jsdom": "^16.6.0"
+  },
+  "jest": {
+     "globals": {
+         "__DEV__": true
+     },
+     "testRegex": "./tests/.*.js$",
+     "rootDir": "."
   }
 }
