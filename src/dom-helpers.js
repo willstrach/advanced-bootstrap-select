@@ -4,7 +4,9 @@ module.exports = {
     ConstructConfiguration,
     GetSelectedItemsFromSelect,
     GetItemsFromSelect,
-    HideElement
+    HideElement,
+    SelectOptionInSelect,
+    DeselectOptionInSelect
 }
 
 function GetOrCreateIdForElement(inputElement) {
@@ -73,4 +75,37 @@ function GetItemsFromSelect(selectId) {
             text: option.innerHTML
         }
     });
+}
+
+function DeselectOptionInSelect(selectId, value) {
+    const select = document.querySelector(`#${selectId}`);
+    const option = select.querySelector(`option[value="${value}"]`)
+
+    option.removeAttribute('selected');
+    option.selected = false;
+}
+
+function SelectOptionInSelect(selectId, value, text) {
+    const select = document.querySelector(`#${selectId}`);
+    const multiple = select.hasAttribute('multiple');
+    const selectedOptions = GetSelectedItemsFromSelect(selectId);
+
+    if (!multiple) {
+        selectedOptions.forEach((item) => {
+            select.querySelector(`option[value="${item.value}"]`).selected = false;
+            select.querySelector(`option[value="${item.value}"]`).removeAttribute('selected');
+        });
+    }
+    
+    if (select.querySelector(`option[value="${value}"]`) === null) {
+        const newOption = document.createElement('option');
+        newOption.value = value;
+        newOption.innerHTML = text;
+        select.appendChild(newOption);
+    }
+
+    const option = select.querySelector(`option[value="${value}"]`)
+
+    option.setAttribute('selected', true);
+    option.selected = true;
 }

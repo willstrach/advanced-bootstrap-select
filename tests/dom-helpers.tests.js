@@ -204,3 +204,106 @@ test('HideElement should not remove existing classes', () => {
     expect(document.querySelector('div').className).toContain('class-1');
     expect(document.querySelector('div').className).toContain('class-2');
 });
+
+test('SelectOptionInSelect should select an option if none are selected', () => {
+    // Arrange
+    document.body.innerHTML = 
+    `
+    <select id="arbitraryId">
+        <option value="1">Option 1</option>
+        <option value="2">Option 2</option>
+    </select>
+    `
+    const select = document.querySelector('#arbitraryId');
+
+    // Act
+    domHelpers.SelectOptionInSelect('arbitraryId', 1, 'Option 1');
+
+    // Assert
+    expect(select.querySelector('option[selected]')).not.toBeNull();
+});
+
+test('SelectOptionInSelect should select an option and deselect another if single select', () => {
+    // Arrange
+    document.body.innerHTML = 
+    `
+    <select id="arbitraryId">
+        <option value="1">Option 1</option>
+        <option value="2" selected>Option 2</option>
+    </select>
+    `
+    const select = document.querySelector('#arbitraryId');
+
+    // Act
+    domHelpers.SelectOptionInSelect('arbitraryId', 1, 'Option 1');
+
+    // Assert
+    expect(select.querySelector('option[selected]')).not.toBeNull();
+    expect(select.querySelector('option[value="2"]').selected).toBeFalsy();
+    expect(select.querySelector('option[value="2"]').hasAttribute('selected')).toBeFalsy();
+    expect(select.querySelector('option[value="1"]').selected).toBeTruthy();
+    expect(select.querySelector('option[value="1"]').hasAttribute('selected')).toBeTruthy();
+});
+
+test('SelectOptionInSelect should select an option and not deselect another if multiple select', () => {
+    // Arrange
+    document.body.innerHTML = 
+    `
+    <select id="arbitraryId" multiple>
+        <option value="1">Option 1</option>
+        <option value="2" selected>Option 2</option>
+    </select>
+    `
+    const select = document.querySelector('#arbitraryId');
+
+    // Act
+    domHelpers.SelectOptionInSelect('arbitraryId', 1, 'Option 1');
+
+    // Assert
+    expect(select.querySelector('option[selected]')).not.toBeNull();
+    expect(select.querySelector('option[value="2"]').selected).toBeTruthy();
+    expect(select.querySelector('option[value="2"]').hasAttribute('selected')).toBeTruthy();
+    expect(select.querySelector('option[value="1"]').selected).toBeTruthy();
+    expect(select.querySelector('option[value="1"]').hasAttribute('selected')).toBeTruthy();
+});
+
+test('SelectOptionInSelect should add an option if it does not exist', () => {
+    // Arrange
+    document.body.innerHTML = 
+    `
+    <select id="arbitraryId" multiple>
+        <option value="1">Option 1</option>
+        <option value="2" selected>Option 2</option>
+    </select>
+    `
+    const select = document.querySelector('#arbitraryId');
+
+    // Act
+    domHelpers.SelectOptionInSelect('arbitraryId', 3, 'Option 3');
+
+    // Assert
+    expect(select.querySelector('option[value="3"]')).not.toBeNull();
+    expect(select.querySelector('option[value="3"]').selected).toBeTruthy();
+    expect(select.querySelector('option[value="3"]').hasAttribute('selected')).toBeTruthy();
+    expect(select.querySelector('option[value="2"]').selected).toBeTruthy();
+    expect(select.querySelector('option[value="2"]').hasAttribute('selected')).toBeTruthy();
+});
+
+test('DeselectOptionInSelect should deselect and option', () => {
+    // Arrange
+    document.body.innerHTML = 
+    `
+    <select id="arbitraryId" multiple>
+        <option value="1">Option 1</option>
+        <option value="2" selected>Option 2</option>
+    </select>
+    `
+    const select = document.querySelector('#arbitraryId');
+
+    // Act
+    domHelpers.DeselectOptionInSelect('arbitraryId', 2);
+
+    // Assert
+    expect(select.querySelector('option[value="2"]').selected).toBeFalsy();
+    expect(select.querySelector('option[value="2"]').hasAttribute('selected')).toBeFalsy();
+});
