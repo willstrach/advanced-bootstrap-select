@@ -19,7 +19,7 @@ function SelectedItemButton(value, text) {
     const itemButton = document.createElement('div');
     itemButton.className = 'btn btn-secondary btn-sm';
     itemButton.setAttribute('value', value);
-    itemButton.innerHTML = text;
+    itemButton.innerHTML = text + ' &times;';
     return itemButton;
 }
 

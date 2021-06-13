@@ -3,7 +3,8 @@ module.exports = {
     RemoveNullPropertiesFromObject,
     ConstructConfiguration,
     GetSelectedItemsFromSelect,
-    GetItemsFromSelect
+    GetItemsFromSelect,
+    HideElement
 }
 
 function GetOrCreateIdForElement(inputElement) {
@@ -15,6 +16,14 @@ function GetOrCreateIdForElement(inputElement) {
     inputElement.id = generatedId;
 
     return generatedId;
+}
+
+function HideElement(element) {
+    if (element.className !== '') {
+        element.className = element.className + ' d-none';
+        return;
+    }
+    element.className = 'd-none';
 }
 
 function RemoveNullPropertiesFromObject(inputObject) {

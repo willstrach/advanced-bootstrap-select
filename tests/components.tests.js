@@ -112,7 +112,7 @@ test('SelectedItemButton should have value and text', () => {
 
     // Assert
     expect(selectedItemButton.getAttribute('value')).toEqual(value.toString());
-    expect(selectedItemButton.innerHTML).toEqual(text);
+    expect(selectedItemButton.innerHTML).toContain(text);
 });
 
 test('UpdateSelectedItemsForAdvancedSelect should add promt text if no items are selected', () => {

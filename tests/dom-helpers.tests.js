@@ -175,3 +175,32 @@ test('GetItemsFromSelect should return array of items if options exist', () => {
         ])
     );
 });
+
+test('HideElement should set element class to d-none if has no classes', () => {
+    // Arrange
+    document.body.innerHTML =
+    `
+    <div></div>
+
+    `
+    // Act
+    domHelpers.HideElement(document.querySelector('div'));
+
+    // Assert
+    expect(document.querySelector('div').className).toEqual('d-none');
+});
+
+test('HideElement should not remove existing classes', () => {
+    // Arrange
+    document.body.innerHTML =
+    `
+    <div class='class-1 class-2'></div>
+
+    `
+    // Act
+    domHelpers.HideElement(document.querySelector('div'));
+
+    // Assert
+    expect(document.querySelector('div').className).toContain('class-1');
+    expect(document.querySelector('div').className).toContain('class-2');
+});

@@ -6,6 +6,7 @@ const components = require('./components');
 const domHelpers = require('./dom-helpers');
 
 function AdvancedBootstrapSelect(selectElement, inputConfiguration = {}) {
+    domHelpers.HideElement(selectElement);
     const selectId = domHelpers.GetOrCreateIdForElement(selectElement);
     const configuration = domHelpers.ConstructConfiguration(selectElement, inputConfiguration);
     const advancedSelect = document.createElement('div');
