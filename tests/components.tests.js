@@ -2,8 +2,7 @@
  * @jest-environment jsdom
  */
 
- const components = require('../src/components')
- const domHelpers = require('../src/dom-helpers');
+ const components = require('../src/components');
 
  test('SelectButton should return a button element', () => {
     // Arrange
@@ -12,8 +11,10 @@
     <select id="arbitraryId">
     </select>
     `
-    const selectElement = document.querySelector('select');
-    const configuration = domHelpers.ConstructConfiguration(selectElement, {});
+    const configuration = {
+        selectId: 'arbitraryId',
+        multiple: false
+    };
 
     // Act
     const buttonElement = components.SelectButton(configuration);
@@ -28,8 +29,10 @@ test('SelectButton should have the data-bs-toggle attribute of dropdown', () => 
     <select id="arbitraryId">
     </select>
     `
-    const selectElement = document.querySelector('select');
-    const configuration = domHelpers.ConstructConfiguration(selectElement, {});
+    const configuration = {
+        selectId: 'arbitraryId',
+        multiple: false
+    };
 
     // Act
     const buttonElement = components.SelectButton(configuration);
@@ -45,8 +48,10 @@ test('SelectButton should have the correct bootstrap classes', () => {
     <select id="arbitraryId">
     </select>
     `
-    const selectElement = document.querySelector('select');
-    const configuration = domHelpers.ConstructConfiguration(selectElement, {});
+    const configuration = {
+        selectId: 'arbitraryId',
+        multiple: false
+    };
 
     // Act
     const buttonElement = components.SelectButton(configuration);
@@ -65,13 +70,11 @@ test('SelectButton should have the correct prompt text if no options are selecte
         <option value="2">Option 2</option>
     </select>
     `
-    const selectElement = document.querySelector('select');
-
-    const configuration = domHelpers.ConstructConfiguration(selectElement, {
+    const configuration = {
         selectId: 'arbitraryId',
-        multiple: true,
-        promptText: 'Some arbitrary prompt text'
-    });
+        multiple: false,
+        promptText: 'Some arbitrary prompt text'        
+    };
 
     // Act
     const buttonElement = components.SelectButton(configuration);
