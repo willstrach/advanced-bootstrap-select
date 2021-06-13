@@ -2,7 +2,8 @@ module.exports = {
     SelectButton,
     SelectedItemButton,
     UpdateSelectedItemsForAdvancedSelect,
-    SelectMenu
+    SelectMenu,
+    SelectItem
 }
 
 const domHelpers = require('./dom-helpers');
@@ -42,9 +43,23 @@ function UpdateSelectedItemsForAdvancedSelect(configuration) {
     advancedSelectButton.innerHTML = configuration.promptText;
 }
 
-function SelectMenu() {
-    const selectMenu = document.createElement('div');
+function SelectItem(value, text) {
+    const selectItem = document.createElement('li');
+    selectItem.className = 'dropdown-item';
+    selectItem.setAttribute('value', value);
+    selectItem.innerHTML = text;
+
+    return selectItem;
+}
+
+function SelectMenu(configuration) {
+    const selectMenu = document.createElement('ul');
     selectMenu.className = 'dropdown-menu w-100';
+
+    const selectItems = domHelpers.GetItemsFromSelect(configuration.selectId);
+    selectItems.forEach((item) => {
+        selectMenu.appendChild(SelectItem(item.value, item.text));
+    });
 
     return selectMenu;
 }

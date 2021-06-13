@@ -201,19 +201,59 @@ test('UpdateSelectedItemsForAdvancedSelect should add selected items if exists a
     expect(advancedSelectButton.children.length).toBe(2);
 });
 
-test('SelectMenu should create a div', () => {
+test('SelectMenu should create a ul', () => {
+    // Arrange
+    const configuration = {
+        selectId: 'arbitraryId',
+        multiple: true,
+        promptText: 'arbitrary prompt text'
+    };
+    
     // Act
-    const selectMenu = components.SelectMenu();
+    const selectMenu = components.SelectMenu(configuration);
 
     // Assert
-    expect(selectMenu.tagName).toBe('DIV');
+    expect(selectMenu.tagName).toBe('UL');
 });
 
 test('SelectMenu should have correct classes', () => {
+    // Arrange
+    const configuration = {
+        selectId: 'arbitraryId',
+        multiple: true,
+        promptText: 'arbitrary prompt text'
+    };
+    
     // Act
-    const selectMenu = components.SelectMenu();
+    const selectMenu = components.SelectMenu(configuration);
 
     // Assert
     expect(selectMenu.className).toContain('dropdown-menu');
     expect(selectMenu.className).toContain('w-100');
+});
+
+test('SelectItem should create a li', () => {
+    // Act
+    const selectItem = components.SelectItem(1, 'Option 1');
+
+    // Assert
+    expect(selectItem.tagName).toBe('LI');
+});
+
+test('SelectItem should have correct classes', () => {
+    // Act
+    const selectItem = components.SelectItem(1, 'Option 1');
+
+    // Assert
+    expect(selectItem.className).toContain('dropdown-item');
+});
+
+test('SelectItem should have value and text', () => {
+    // Act
+    const selectItem = components.SelectItem(1, 'Option 1');
+
+    // Assert
+    expect(selectItem.hasAttribute('value')).toBeTruthy();
+    expect(selectItem.getAttribute('value')).toBe('1');
+    expect(selectItem.innerHTML).toBe('Option 1');
 });

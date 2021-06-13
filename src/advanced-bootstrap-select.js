@@ -13,7 +13,7 @@ function AdvancedBootstrapSelect(selectElement, inputConfiguration = {}) {
     advancedSelect.className = 'dropdown';
     advancedSelect.setAttribute('data-bs-overrides', selectId);
     advancedSelect.appendChild(components.SelectButton(configuration));
-    advancedSelect.appendChild(components.SelectMenu());
+    advancedSelect.appendChild(components.SelectMenu(configuration));
 
     selectElement.parentElement.insertBefore(advancedSelect, selectElement);
     components.UpdateSelectedItemsForAdvancedSelect(configuration);
