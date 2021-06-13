@@ -92,8 +92,7 @@ function SelectOptionInSelect(selectId, value, text) {
 
     if (!multiple) {
         selectedOptions.forEach((item) => {
-            select.querySelector(`option[value="${item.value}"]`).selected = false;
-            select.querySelector(`option[value="${item.value}"]`).removeAttribute('selected');
+            DeselectOptionInSelect(selectId, item.value);
         });
     }
     

@@ -3,7 +3,8 @@ module.exports = {
     SelectedItemButton,
     UpdateSelectedItemsForAdvancedSelect,
     SelectMenu,
-    SelectItem
+    SelectItem,
+    SelectItemClickHandler
 }
 
 const domHelpers = require('./dom-helpers');
@@ -17,11 +18,23 @@ function SelectButton(configuration) {
     return button;
 }
 
-function SelectedItemButton(value, text) {
+function SelectedItemButtonClickHandler(event, configuration) {
+    const selectId = event.target.parentElement.parentElement.getAttribute('data-bs-overrides');
+    const value = event.target.getAttribute('value');
+    const text = event.target.innerHTML;
+
+    domHelpers.DeselectOptionInSelect(selectId, value);
+    UpdateSelectedItemsForAdvancedSelect(configuration)
+}
+
+function SelectedItemButton(value, text, configuration) {
     const itemButton = document.createElement('div');
     itemButton.className = 'btn btn-secondary btn-sm me-1';
     itemButton.setAttribute('value', value);
     itemButton.innerHTML = text + ' &times;';
+    itemButton.addEventListener('click', (event) => {
+        SelectedItemButtonClickHandler(event, configuration)
+    });
     return itemButton;
 }
 
@@ -35,7 +48,7 @@ function UpdateSelectedItemsForAdvancedSelect(configuration) {
     }
     if (selectedItems.length > 0 && configuration.multiple) {
         selectedItems.forEach((item) => {
-            advancedSelectButton.appendChild(SelectedItemButton(item.value, item.text));
+            advancedSelectButton.appendChild(SelectedItemButton(item.value, item.text, configuration));
         });
         return;
     }
@@ -43,11 +56,23 @@ function UpdateSelectedItemsForAdvancedSelect(configuration) {
     advancedSelectButton.innerHTML = configuration.promptText;
 }
 
-function SelectItem(value, text) {
+function SelectItemClickHandler(event, configuration) {
+    const selectId = event.target.parentElement.parentElement.getAttribute('data-bs-overrides');
+    const value = event.target.getAttribute('value');
+    const text = event.target.innerHTML;
+
+    domHelpers.SelectOptionInSelect(selectId, value, text);
+    UpdateSelectedItemsForAdvancedSelect(configuration)
+}
+
+function SelectItem(value, text, configuration) {
     const selectItem = document.createElement('li');
     selectItem.className = 'dropdown-item';
     selectItem.setAttribute('value', value);
     selectItem.innerHTML = text;
+    selectItem.addEventListener('click', (event) => {
+        SelectItemClickHandler(event, configuration);
+    });
 
     return selectItem;
 }
@@ -58,7 +83,7 @@ function SelectMenu(configuration) {
 
     const selectItems = domHelpers.GetItemsFromSelect(configuration.selectId);
     selectItems.forEach((item) => {
-        selectMenu.appendChild(SelectItem(item.value, item.text));
+        selectMenu.appendChild(SelectItem(item.value, item.text, configuration));
     });
 
     return selectMenu;
