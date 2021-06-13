@@ -9,6 +9,8 @@ module.exports = {
     DeselectOptionInSelect
 }
 
+const constants = require('./constants');
+
 function GetOrCreateIdForElement(inputElement) {
     if (inputElement.id !== '') {
         return inputElement.id;
@@ -47,7 +49,7 @@ function ConstructConfiguration(selectElement, inputConfiguration) {
     const elementConfiguration = {
         selectId: selectElement.id,
         multiple: selectElement.hasAttribute('multiple') ? true : false,
-        promptText: selectElement.getAttribute('data-bs-prompt')
+        promptText: selectElement.getAttribute(constants.PROMPT_TEXT_ATTRIBUTE)
     }
 
     const outputConfiguration = {
@@ -57,6 +59,10 @@ function ConstructConfiguration(selectElement, inputConfiguration) {
     };
 
     return outputConfiguration;
+}
+
+function ApplyConfiguration(selectConfiguration, inputConfiguration) {
+    
 }
 
 function GetSelectedItemsFromSelect(selectId) {

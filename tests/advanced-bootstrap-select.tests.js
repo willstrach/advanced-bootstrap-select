@@ -2,7 +2,8 @@
  * @jest-environment jsdom
  */
 
-const advancedBootstrapSelect = require('../src/advanced-bootstrap-select')
+const advancedBootstrapSelect = require('../src/advanced-bootstrap-select');
+const constants = require('../src/constants');
 
 test('AdvancedBoostrapSelect should add div before select element', () => {
     // Arrange
@@ -38,8 +39,8 @@ test('AdvancedBootstrapSelect should add div with data-bs-overrides attribute', 
     advancedBootstrapSelect.AdvancedBootstrapSelect(selectElement);
 
     // Assert
-    expect(selectElement.previousSibling.hasAttribute('data-bs-overrides')).toBeTruthy();
-    expect(selectElement.previousElementSibling.getAttribute('data-bs-overrides')).toEqual(selectElement.id);
+    expect(selectElement.previousSibling.hasAttribute(constants.OVERRIDES_ATTRIBUTE)).toBeTruthy();
+    expect(selectElement.previousElementSibling.getAttribute(constants.OVERRIDES_ATTRIBUTE)).toEqual(selectElement.id);
 });
 
 test('AdvancedBootstrapSelect should add div with dropdown class', () => {

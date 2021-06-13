@@ -8,6 +8,7 @@ module.exports = {
 }
 
 const domHelpers = require('./dom-helpers');
+const constants = require('./constants');
 
 function SelectButton(configuration) {
     const button = document.createElement('button');
@@ -19,7 +20,7 @@ function SelectButton(configuration) {
 }
 
 function SelectedItemButtonClickHandler(event, configuration) {
-    const selectId = event.target.parentElement.parentElement.getAttribute('data-bs-overrides');
+    const selectId = event.target.parentElement.parentElement.getAttribute(constants.OVERRIDES_ATTRIBUTE);
     const value = event.target.getAttribute('value');
     const text = event.target.innerHTML;
 
@@ -39,7 +40,7 @@ function SelectedItemButton(value, text, configuration) {
 }
 
 function UpdateSelectedItemsForAdvancedSelect(configuration) {
-    const advancedSelectButton = document.querySelector(`.dropdown[data-bs-overrides="${configuration.selectId}"] > .form-select`);
+    const advancedSelectButton = document.querySelector(`.dropdown[${constants.OVERRIDES_ATTRIBUTE}="${configuration.selectId}"] > .form-select`);
     advancedSelectButton.innerHTML = '';
     const selectedItems = domHelpers.GetSelectedItemsFromSelect(configuration.selectId);
     if (selectedItems.length > 0 && !configuration.multiple) {
@@ -57,7 +58,7 @@ function UpdateSelectedItemsForAdvancedSelect(configuration) {
 }
 
 function SelectItemClickHandler(event, configuration) {
-    const selectId = event.target.parentElement.parentElement.getAttribute('data-bs-overrides');
+    const selectId = event.target.parentElement.parentElement.getAttribute(constants.OVERRIDES_ATTRIBUTE);
     const value = event.target.getAttribute('value');
     const text = event.target.innerHTML;
 

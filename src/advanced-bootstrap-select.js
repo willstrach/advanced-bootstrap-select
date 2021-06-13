@@ -4,6 +4,7 @@ module.exports = {
 
 const components = require('./components');
 const domHelpers = require('./dom-helpers');
+const constants = require('./constants');
 
 function AdvancedBootstrapSelect(selectElement, inputConfiguration = {}) {
     domHelpers.HideElement(selectElement);
@@ -11,7 +12,7 @@ function AdvancedBootstrapSelect(selectElement, inputConfiguration = {}) {
     const configuration = domHelpers.ConstructConfiguration(selectElement, inputConfiguration);
     const advancedSelect = document.createElement('div');
     advancedSelect.className = 'dropdown';
-    advancedSelect.setAttribute('data-bs-overrides', selectId);
+    advancedSelect.setAttribute(constants.OVERRIDES_ATTRIBUTE, selectId);
     advancedSelect.appendChild(components.SelectButton(configuration));
     advancedSelect.appendChild(components.SelectMenu(configuration));
 

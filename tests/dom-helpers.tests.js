@@ -2,7 +2,8 @@
  * @jest-environment jsdom
  */
 
-const domHelpers = require('../src/dom-helpers')
+const domHelpers = require('../src/dom-helpers');
+const constants = require('../src/constants');
 
 test('GetOrCreateIdForElement returns correct id when element has id', () => {
     // Arrange
@@ -51,7 +52,7 @@ test('ConstructConfiguration should return configuration values from element if 
     document.body.innerHTML = 
     `
     <select id="arbitraryId"
-        data-bs-prompt="Some arbitrary prompt text"
+        ${constants.PROMPT_TEXT_ATTRIBUTE}="Some arbitrary prompt text"
         multiple>
     </select>
     `

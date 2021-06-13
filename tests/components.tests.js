@@ -3,6 +3,7 @@
  */
 
  const components = require('../src/components');
+ const constants = require('../src/constants');
 
  test('SelectButton should return a button element', () => {
     // Arrange
@@ -122,7 +123,7 @@ test('UpdateSelectedItemsForAdvancedSelect should add promt text if no items are
     // Arrange
     document.body.innerHTML = 
     `
-    <div class="dropdown" data-bs-overrides="arbitraryId">
+    <div class="dropdown" ${constants.OVERRIDES_ATTRIBUTE}="arbitraryId">
         <button class="form-select text-start">
         </button>
     </div>
@@ -149,7 +150,7 @@ test('UpdateSelectedItemsForAdvancedSelect should add selected item if exists an
     // Arrange
     document.body.innerHTML = 
     `
-    <div class="dropdown" data-bs-overrides="arbitraryId">
+    <div class="dropdown" ${constants.OVERRIDES_ATTRIBUTE}="arbitraryId">
         <button class="form-select text-start">
         </button>
     </div>
@@ -176,7 +177,7 @@ test('UpdateSelectedItemsForAdvancedSelect should add selected items if exists a
     // Arrange
     document.body.innerHTML = 
     `
-    <div class="dropdown" data-bs-overrides="arbitraryId">
+    <div class="dropdown" ${constants.OVERRIDES_ATTRIBUTE}="arbitraryId">
         <button class="form-select text-start">
         </button>
     </div>
