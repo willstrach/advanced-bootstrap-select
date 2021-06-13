@@ -10,13 +10,18 @@
   "license": "ISC",
   "devDependencies": {
     "jest": "^27.0.4",
-    "jsdom": "^16.6.0"
+    "jsdom": "^16.6.0",
+    "webpack": "^5.38.1",
+    "webpack-cli": "^4.7.2"
   },
   "jest": {
-     "globals": {
-         "__DEV__": true
-     },
-     "testRegex": "./tests/.*.js$",
-     "rootDir": "."
+    "globals": {
+      "__DEV__": true
+    },
+    "testRegex": "./tests/.*.js$",
+    "rootDir": "."
+  },
+  "dependencies": {
+    "@webassemblyjs/ieee754": "^1.11.0"
   }
 }
