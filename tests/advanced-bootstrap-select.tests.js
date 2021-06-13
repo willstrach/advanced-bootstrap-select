@@ -120,13 +120,22 @@ test('SelectButton should have the correct bootstrap classes', () => {
     expect(buttonElement.className).toContain('text-start');
 });
 
-test('SelectButton should have the correct prompt text', () => {
+test('SelectButton should have the correct prompt text if no options are selected', () => {
     // Arrange
-    const configuration = {
+    document.body.innerHTML = 
+    `
+    <select id="arbitraryId">
+        <option value="1">Option 1</option>
+        <option value="2">Option 2</option>
+    </select>
+    `
+    const selectElement = document.querySelector('select');
+
+    const configuration = advancedBootstrapSelect.ConstructConfiguration(selectElement, {
         selectId: 'arbitraryId',
         multiple: true,
         promptText: 'Some arbitrary prompt text'
-    }
+    });
 
     // Act
     const buttonElement = advancedBootstrapSelect.SelectButton(configuration);
@@ -134,6 +143,7 @@ test('SelectButton should have the correct prompt text', () => {
     // Assert
     expect(buttonElement.innerHTML).toBe('Some arbitrary prompt text');
 });
+
 
 test('GetSelectedItemsFromSelect should return empty array if no items exist', () => {
     // Arrange
@@ -241,4 +251,60 @@ test('GetItemsFromSelect should return array of items if options exist', () => {
             )
         ])
     );
+});
+
+test('AdvancedBoostrapSelect should add div before select element', () => {
+    // Arrange
+    document.body.innerHTML = 
+    `
+    <select id="arbitraryId">
+        <option value="1">Option 1</option>
+        <option value="2">Option 2</option>
+    </select>
+    `
+    const selectElement = document.querySelector('select');
+
+    // Act
+    advancedBootstrapSelect.AdvancedBootstrapSelect(selectElement);
+
+    // Assert
+    expect(selectElement.previousSibling).toBeDefined();
+    expect(selectElement.previousSibling.tagName).toBe('DIV');
+});
+
+test('AdvancedBootstrapSelect should add div with data-bs-overrides element', () => {
+    // Arrange
+    document.body.innerHTML = 
+    `
+    <select id="arbitraryId">
+        <option value="1">Option 1</option>
+        <option value="2">Option 2</option>
+    </select>
+    `
+    const selectElement = document.querySelector('select');
+
+    // Act
+    advancedBootstrapSelect.AdvancedBootstrapSelect(selectElement);
+
+    // Assert
+    expect(selectElement.previousSibling.hasAttribute('data-bs-overrides')).toBeTruthy();
+    expect(selectElement.previousElementSibling.getAttribute('data-bs-overrides')).toEqual(selectElement.id);
+});
+
+test('AdvancedBootstrapSelect should add a select button', () => {
+    // Arrange
+    document.body.innerHTML = 
+    `
+    <select id="arbitraryId">
+        <option value="1">Option 1</option>
+        <option value="2">Option 2</option>
+    </select>
+    `
+    const selectElement = document.querySelector('select');
+
+    // Act
+    advancedBootstrapSelect.AdvancedBootstrapSelect(selectElement);
+
+    // Assert
+    expect(selectElement.previousSibling.querySelector('button.form-select')).toBeDefined();
 });

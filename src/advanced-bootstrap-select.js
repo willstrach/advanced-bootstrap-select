@@ -5,7 +5,8 @@ if (typeof module !== 'undefined'){
         ConstructConfiguration,
         SelectButton,
         GetSelectedItemsFromSelect,
-        GetItemsFromSelect
+        GetItemsFromSelect,
+        AdvancedBootstrapSelect
     }
 }
 
@@ -67,7 +68,7 @@ function GetItemsFromSelect(selectId) {
             text: option.innerHTML
         }
     });
-} 
+}
 
 function SelectButton(configuration) {
     const button = document.createElement('button');
@@ -81,4 +82,9 @@ function SelectButton(configuration) {
 function AdvancedBootstrapSelect(selectElement, inputConfiguration = {}) {
     const selectId = GetOrCreateIdForElement(selectElement);
     const configuration = ConstructConfiguration(selectElement, inputConfiguration);
+    const advancedSelect = document.createElement('div');
+    advancedSelect.setAttribute('data-bs-overrides', selectId);
+    advancedSelect.appendChild(SelectButton(configuration));
+
+    selectElement.parentElement.insertBefore(advancedSelect, selectElement);
 }
