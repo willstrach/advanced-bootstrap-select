@@ -4,7 +4,8 @@ if (typeof module !== 'undefined'){
         RemoveNullPropertiesFromObject,
         ConstructConfiguration,
         SelectButton,
-        GetSelectedItems
+        GetSelectedItemsFromSelect,
+        GetItemsFromSelect
     }
 }
 
@@ -50,7 +51,7 @@ function ConstructConfiguration(selectElement, inputConfiguration) {
     return outputConfiguration;
 }
 
-function GetSelectedItems(selectId) {
+function GetSelectedItemsFromSelect(selectId) {
     return Array.from(document.querySelectorAll(`#${selectId} > option[selected]`)).map((option) => {
         return {
             value: option.getAttribute('value'),
@@ -58,6 +59,15 @@ function GetSelectedItems(selectId) {
         }
     });
 }
+
+function GetItemsFromSelect(selectId) {
+    return Array.from(document.querySelectorAll(`#${selectId} > option`)).map((option) => {
+        return {
+            value: option.getAttribute('value'),
+            text: option.innerHTML
+        }
+    });
+} 
 
 function SelectButton(configuration) {
     const button = document.createElement('button');
