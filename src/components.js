@@ -1,7 +1,8 @@
 module.exports = {
     SelectButton,
     SelectedItemButton,
-    UpdateSelectedItemsForAdvancedSelect
+    UpdateSelectedItemsForAdvancedSelect,
+    SelectMenu
 }
 
 const domHelpers = require('./dom-helpers');
@@ -9,7 +10,7 @@ const domHelpers = require('./dom-helpers');
 function SelectButton(configuration) {
     const button = document.createElement('button');
     button.className = 'form-select text-start';
-    button.setAttribute('data-bs-toggle', 'button');
+    button.setAttribute('data-bs-toggle', 'dropdown');
     button.innerHTML = configuration.promptText;
     
     return button;
@@ -39,4 +40,11 @@ function UpdateSelectedItemsForAdvancedSelect(configuration) {
     }
 
     advancedSelectButton.innerHTML = configuration.promptText;
+}
+
+function SelectMenu() {
+    const selectMenu = document.createElement('div');
+    selectMenu.className = 'dropdown-menu w-100';
+
+    return selectMenu;
 }

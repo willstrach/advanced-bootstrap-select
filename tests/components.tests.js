@@ -22,7 +22,7 @@
     expect(buttonElement.tagName).toBe('BUTTON');
 })
 
-test('SelectButton should have the data-bs-toggle attribute of button', () => {
+test('SelectButton should have the data-bs-toggle attribute of dropdown', () => {
     document.body.innerHTML = 
     `
     <select id="arbitraryId">
@@ -36,7 +36,7 @@ test('SelectButton should have the data-bs-toggle attribute of button', () => {
 
     // Assert
     expect(buttonElement.hasAttribute('data-bs-toggle')).toBeTruthy();
-    expect(buttonElement.getAttribute('data-bs-toggle')).toBe('button');
+    expect(buttonElement.getAttribute('data-bs-toggle')).toBe('dropdown');
 });
 
 test('SelectButton should have the correct bootstrap classes', () => {
@@ -196,4 +196,21 @@ test('UpdateSelectedItemsForAdvancedSelect should add selected items if exists a
     expect(advancedSelectButton.innerHTML).toContain('Option 1');
     expect(advancedSelectButton.innerHTML).toContain('Option 2');
     expect(advancedSelectButton.children.length).toBe(2);
+});
+
+test('SelectMenu should create a div', () => {
+    // Act
+    const selectMenu = components.SelectMenu();
+
+    // Assert
+    expect(selectMenu.tagName).toBe('DIV');
+});
+
+test('SelectMenu should have correct classes', () => {
+    // Act
+    const selectMenu = components.SelectMenu();
+
+    // Assert
+    expect(selectMenu.className).toContain('dropdown-menu');
+    expect(selectMenu.className).toContain('w-100');
 });
