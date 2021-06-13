@@ -17,7 +17,7 @@ function SelectButton(configuration) {
 
 function SelectedItemButton(value, text) {
     const itemButton = document.createElement('div');
-    itemButton.className = 'btn btn-secondary btn-sm';
+    itemButton.className = 'btn btn-secondary btn-sm me-1';
     itemButton.setAttribute('value', value);
     itemButton.innerHTML = text + ' &times;';
     return itemButton;
